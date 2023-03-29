@@ -3,10 +3,12 @@ package test;
 import static com.beust.jcommander.internal.Lists.newArrayList;
 import com.fluffy.universe.exceptions.HttpException;
 import static com.fluffy.universe.utils.SecurityUtils.escape;
+import static com.fluffy.universe.utils.ValidationUtils.isDateValid;
 import static com.fluffy.universe.utils.ValidationUtils.isValidMail;
 import static com.fluffy.universe.utils.ValidationUtils.validateParametersPresence;
 import io.javalin.http.HttpCode;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -40,16 +42,18 @@ public class test {
         assertTrue(isValidMail("test@test.ts"));
         assertFalse(isValidMail("TEST"));
     }
-       /* public static void validateParametersPresence(Object... parameters) {
-        for (Object parameter : parameters) {
-            if (parameter == null) {
-                throw new HttpException(HttpCode.BAD_REQUEST);
-            }*/
+
     @Test
     public void validateParametersPresencetest() {
         List TestList=null;//new ArrayList();
         assertThrows(HttpException.class, () -> {
 		validateParametersPresence(TestList);
 	});
+    }
+    
+    @Test
+        public void isDateValidtest() {
+            assertTrue(isDateValid("1983-23-07"));
+            assertFalse(isDateValid("1983-23-07"));
     }
 }
